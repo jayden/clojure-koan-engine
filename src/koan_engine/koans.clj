@@ -1,7 +1,8 @@
 (ns koan-engine.koans
   (:use [clojure.java.io :only [file resource]])
   (:require [koan-engine.util :as u]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [io.aviso.ansi :as pretty]))
 
 ;; TODO: Proper koan validation. Accept the path as an argument.
 (defn ordered-koans [answer-path]
@@ -28,7 +29,7 @@
              (str (last (str/split file-path #"/"))
                   (when line (str ":" line))))
     (println "---------------------")
-    (println "Assertion failed!")
+    (println (pretty/bold-red "Assertion failed!"))
     (println (.replaceFirst message "^Assert failed: " ""))))
 
 (defn tests-pass? [dojo-path file-path]
